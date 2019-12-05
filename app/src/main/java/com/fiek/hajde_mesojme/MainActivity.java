@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -54,23 +55,28 @@ public class MainActivity extends AppCompatActivity {
 
     private ProfiliFragment profiliFragment;
 
+    FirebaseRecyclerAdapter<Model, ViewHolder> adapter;
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
 
-    FirebaseDatabase database;
-    DatabaseReference databaseReference;
+
+    RecyclerView mRecyclerView;
+    FirebaseDatabase mFirebaseDatabase;
+    DatabaseReference mRef;
     private String currentUser;
     private String currentPassword;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mAuth = FirebaseAuth.getInstance();
-        firebaseFirestore = FirebaseFirestore.getInstance();
+        //mAuth = FirebaseAuth.getInstance();
+        //firebaseFirestore = FirebaseFirestore.getInstance();
 
-        // Init Firebase
-        database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("lendet");
+
+
 
         mainToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(mainToolbar);
@@ -79,18 +85,53 @@ public class MainActivity extends AppCompatActivity {
         Paper.init(this);
         currentUser = getIntent().getExtras().get("current_user").toString();
         currentPassword = getIntent().getExtras().get("current_password").toString();
-
-
         txtInputUsername = currentUser;
 
-        if(currentUser != null)
-        {
 
-        }
+        mRecyclerView = findViewById(R.id.recyclerView);
+        mRecyclerView.setHasFixedSize(true);
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Init Firebase
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mRef = mFirebaseDatabase.getReference("Lendet");
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+
+
+
+        loadLendet();
+
 
     }
 
 
+    private void loadLendet()
+    {
+
+        adapter = new FirebaseRecyclerAdapter<Model, ViewHolder>
+                (Model.class, R.layout.row, ViewHolder.class,
+                        mRef.orderByChild("Lendet"))
+        {
+
+            @Override
+            // metode e cila perdoret per te populluar me te dhena recycler view
+            protected void populateViewHolder(ViewHolder viewHolder, Model model, int position) {
+
+                viewHolder.lenda_name.setText(model.getName());
+                Picasso.get().load(model.getImage()).into((ImageView) viewHolder.lenda_image);
+
+                final Model local = model;
+
+            }
+        };
+        recyclerView.setAdapter(adapter);
+    }
 
 
     @Override
@@ -141,8 +182,8 @@ public class MainActivity extends AppCompatActivity {
     private void dergoProfile() {
 
         Intent intent = new Intent(MainActivity.this, userProfile.class);
-        intent.putExtra("current_user1", currentUser);
-        intent.putExtra("current_password1", currentPassword);
+        intent.putExtra("current_user", currentUser);
+        intent.putExtra("current_password", currentPassword);
         startActivity(intent);
         finish();
 
@@ -151,8 +192,14 @@ public class MainActivity extends AppCompatActivity {
     private void Ckycja() {
 
 
-        mAuth.signOut();
-        DergoKycje();
+        //mAuth.signOut();
+        //DergoKycje();
+        Paper.book().destroy();
+
+        //Log out
+        Intent intent = new Intent(MainActivity.this, SignIn.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     private void DergoKycje() {
@@ -162,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
         finish();
 
     }
-
+/*
     private void initializeFragment(){
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -197,6 +244,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
     }
-
+*/
 
 }

@@ -1,8 +1,12 @@
 package com.fiek.hajde_mesojme;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -136,9 +140,9 @@ public class userProfile extends AppCompatActivity
         //btn1 = findViewById(R.id.btn1);
         imageProfile = findViewById(R.id.imageProfile);
 
-        currentUser = getIntent().getExtras().get("current_user1").toString();
+        currentUser = getIntent().getExtras().get("current_user").toString();
         txtInputUsername.setText(currentUser);
-        currentPassword = getIntent().getExtras().get("current_password1").toString();
+        currentPassword = getIntent().getExtras().get("current_password").toString();
 
         txtInputFirstName.setEnabled(false);
         txtInputLastName.setEnabled(false);
@@ -189,6 +193,16 @@ public class userProfile extends AppCompatActivity
                 updateUser();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        // Do Here what ever you want do on back press;
+        Intent intent = new Intent(userProfile.this, MainActivity.class);
+        intent.putExtra("current_user", currentUser);
+        intent.putExtra("current_password", currentPassword);
+        startActivity(intent);
     }
 
 

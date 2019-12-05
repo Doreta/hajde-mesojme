@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/hhh"
+    android:background="@drawable/wellc"
     tools:context=".Welcome">
 
 
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:gravity="center"
-        android:text="@string/txtWelcome"
+        android:text=""
         android:textColor="@android:color/white"
         android:textSize="80sp"
         android:textStyle="bold"

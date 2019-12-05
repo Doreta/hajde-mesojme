@@ -41,8 +41,8 @@ public class RrethneshActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rrethnesh);
 
-        mAuth = FirebaseAuth.getInstance();
-        firebaseFirestore = FirebaseFirestore.getInstance();
+       // mAuth = FirebaseAuth.getInstance();
+        //firebaseFirestore = FirebaseFirestore.getInstance();
 
         rrethnesh_Toolbar = (Toolbar) findViewById(R.id.rrethnesh_Toolbar);
         setSupportActionBar(rrethnesh_Toolbar);

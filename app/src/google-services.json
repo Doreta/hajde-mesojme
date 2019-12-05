@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "192652461994-6i1dm9jcetudfpk7dq1otr3snmhgre13.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fiek.hajde_mesojme",
+            "certificate_hash": "1719171e21a37ccc56186b6066218d1cca49e692"
+          }
+        },
+        {
           "client_id": "192652461994-pje2daj08pi55c2svoocqcqos46o6klh.apps.googleusercontent.com",
           "client_type": 3
         }

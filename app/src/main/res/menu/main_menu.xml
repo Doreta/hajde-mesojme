@@ -4,11 +4,11 @@
 
 
     <item android:id="@+id/btn_profili"
-        android:title="Profili" />
+        android:title="Profile" />
     <item
         android:id="@+id/btn_rrethnesh"
-        android:title="Rreth Nesh" />
+        android:title="About Us" />
     <item
         android:id="@+id/btn_ckycu"
-        android:title="Ckycuni" />
+        android:title="Log Out" />
 </menu>
